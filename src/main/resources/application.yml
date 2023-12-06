@@ -1,0 +1,33 @@
+spring:
+  application.name: notification
+  datasource:
+    url: jdbc:postgresql://${database.endpoint}/${database.name}
+    username: ${database.user}
+    password: ${database.password}
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  kafka:
+    consumer:
+      bootstrap-servers: localhost:29092
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    producer:
+      bootstrap-servers: localhost:29092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonSerializer
+database:
+  endpoint: localhost:5432
+  name: sopp
+  user: db_user
+  password: db_pass
+server:
+  port: 8084
+firebase:
+  credentials:
+    path: serviceAccountKey.json
